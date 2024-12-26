@@ -96,6 +96,12 @@ class BaEl:
             self.settings['automation_interval'] += 5
         self.set_automation_settings(self.settings['automation_interval'])
 
+    def run_for_20_minutes(self):
+        start_time = datetime.now()
+        while (datetime.now() - start_time).total_seconds() < 1200:  # 20 minutes in seconds
+            self.scheduler.run_pending()
+            time.sleep(1)
+
 ba_el = BaEl()
 
 @app.route('/')
@@ -155,6 +161,11 @@ def adjust_automation_interval():
     system_load = request.json['system_load']
     ba_el.adjust_automation_interval(system_load)
     return jsonify({"status": "Automation interval adjusted."})
+
+@app.route('/run_for_20_minutes', methods=['POST'])
+def run_for_20_minutes():
+    ba_el.run_for_20_minutes()
+    return jsonify({"status": "System ran for 20 minutes."})
 
 @socketio.on('connect')
 def test_connect():
