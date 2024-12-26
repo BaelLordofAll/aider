@@ -7,6 +7,7 @@ import json
 from datetime import datetime
 import schedule
 import time
+from SystemIntegration import SystemIntegration
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -18,6 +19,7 @@ class AutoAutomator:
         self.monitor_data = {}  # Dictionary to store monitoring data
         self.ethical_guidelines = self._load_ethical_guidelines()
         self.scheduler = schedule.Scheduler()
+        self.system_integration = SystemIntegration()
 
     def _load_ethical_guidelines(self):
         with open('ethical_guidelines.json', 'r') as file:
@@ -62,7 +64,7 @@ def {func_name}_automation():
             pass
         
         # Create new automation scripts based on emerging needs
-        pass
+        self.system_integration.integrate_all()
 
     def check_ethical_compliance(self, automation_script):
         for guideline in self.ethical_guidelines:
