@@ -80,6 +80,22 @@ class BaEl:
             return f"Hey, stability mode set to {mode}."
         return "Hey, invalid stability mode. Choose from 'low', 'medium', or 'high'."
 
+    def adjust_evolution_interval(self, performance_metrics):
+        # Logic to adjust evolution interval based on performance metrics
+        if performance_metrics['cpu_usage'] > 80:
+            self.settings['evolution_interval'] = max(1, self.settings['evolution_interval'] - 1)
+        elif performance_metrics['cpu_usage'] < 50:
+            self.settings['evolution_interval'] += 1
+        self.schedule_evolution()
+
+    def adjust_automation_interval(self, system_load):
+        # Logic to adjust automation interval based on system load
+        if system_load > 0.8:
+            self.settings['automation_interval'] = max(1, self.settings['automation_interval'] - 5)
+        elif system_load < 0.5:
+            self.settings['automation_interval'] += 5
+        self.set_automation_settings(self.settings['automation_interval'])
+
 ba_el = BaEl()
 
 @app.route('/')
@@ -127,6 +143,18 @@ def set_power_mode():
 def set_stability_mode():
     mode = request.form['stability_mode']
     return jsonify({"status": ba_el.set_stability_mode(mode)})
+
+@app.route('/adjust_evolution_interval', methods=['POST'])
+def adjust_evolution_interval():
+    performance_metrics = request.json
+    ba_el.adjust_evolution_interval(performance_metrics)
+    return jsonify({"status": "Evolution interval adjusted."})
+
+@app.route('/adjust_automation_interval', methods=['POST'])
+def adjust_automation_interval():
+    system_load = request.json['system_load']
+    ba_el.adjust_automation_interval(system_load)
+    return jsonify({"status": "Automation interval adjusted."})
 
 @socketio.on('connect')
 def test_connect():

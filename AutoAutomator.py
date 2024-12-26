@@ -9,7 +9,7 @@ from flask_socketio import SocketIO, emit
 from MasterOrchestrator import MasterOrchestrator
 import os
 import inspect
-from threading import Thread  # Importing Thread
+from threading import Thread
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -103,7 +103,9 @@ def {func_name}_automation():
 
     def train_agent(self, agent_name, data):
         # Hey, here's where we would implement logic to train an agent using the provided data
-        pass
+        if self.learning_model:
+            self.learning_model.fit(data)
+            self.socketio.emit('agent_trained', {'message': f'Hey, {agent_name} has been trained with new data!'})
 
 auto_automator = AutoAutomator()
 
