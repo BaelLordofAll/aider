@@ -31,7 +31,11 @@
     <button onclick="location.href='/evolve'">Evolve System</button>
     <button onclick="location.href='/start_orchestrator'">Start Orchestrator</button>
     <button onclick="location.href='/auto_run_orchestration'">Auto Run Orchestration</button>
-    <button onclick="location.href='/run_auto_scheme'">Run Auto Scheme</button>
+    <form id="auto_scheme_form" action="/run_auto_scheme" method="post">
+        <label for="num_jobs">Number of Jobs:</label>
+        <input type="number" id="num_jobs" name="num_jobs" value="50" min="10" max="50">
+        <input type="submit" value="Run Auto Scheme">
+    </form>
     <pre id="monitor_data"></pre>
 </body>
 </html>

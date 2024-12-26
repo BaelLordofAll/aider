@@ -10,6 +10,8 @@ import time
 from threading import Thread
 import random
 from BaEl import BaEl
+from ProtocolManager import ProtocolManager
+from KnowledgeIntegrator import KnowledgeIntegrator
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -23,6 +25,8 @@ class MasterOrchestrator:
         self.socketio = socketio
         self.is_running = False
         self.ba_el = BaEl()
+        self.protocol_manager = ProtocolManager()
+        self.knowledge_integrator = KnowledgeIntegrator()
         self.steps = 50
         self.current_step = 0
 
@@ -34,6 +38,8 @@ class MasterOrchestrator:
             self.auto_automator.evolve_system()
             self.system_integration.integrate_all()
             self.ba_el.evolve_system()
+            self.protocol_manager.enforce_protocols()
+            self.knowledge_integrator.update_knowledge()
             self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
             self.is_running = False
 
@@ -71,8 +77,8 @@ class MasterOrchestrator:
         ]
         return random.choice(ideas)
 
-    def run_auto_scheme(self):
-        for step in range(1, self.steps + 1):
+    def run_auto_scheme(self, num_jobs=50):
+        for step in range(1, num_jobs + 1):
             self.current_step = step
             self._execute_step(step)
             self.socketio.emit('step_completed', {'step': step, 'message': f'Step {step} completed'})
@@ -82,13 +88,14 @@ class MasterOrchestrator:
         if step % 5 == 0:  # Every 5 steps, focus on system integration
             self.system_integration.integrate_all()
         elif step % 4 == 0:  # Every 4 steps, focus on ethical compliance
-            self.ba_el.enforce_protocols()
+            self.protocol_manager.enforce_protocols()
         elif step % 3 == 0:  # Every 3 steps, focus on automation
             self.auto_automator.automate_automation(self._get_random_function())
         elif step % 2 == 0:  # Every 2 steps, focus on learning
             self.auto_automator.learn_from_interactions()
         else:  # Every other step, focus on evolution
             self.ba_el.evolve_system()
+            self.knowledge_integrator.update_knowledge()
 
     def _get_random_function(self):
         # Placeholder for a function that returns a random function from the system
@@ -123,8 +130,9 @@ def generate_idea():
 
 @app.route('/run_auto_scheme', methods=['POST'])
 def run_auto_scheme():
-    master_orchestrator.run_auto_scheme()
-    return jsonify({"status": "Auto-run scheme initiated."})
+    num_jobs = request.json.get('num_jobs', 50)
+    master_orchestrator.run_auto_scheme(num_jobs)
+    return jsonify({"status": f"Auto-run scheme initiated with {num_jobs} jobs."})
 
 @socketio.on('connect')
 def test_connect():
