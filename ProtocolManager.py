@@ -29,24 +29,23 @@ class ProtocolManager:
             return json.load(file)
 
     def enforce_protocols(self):
-        # Implement logic to enforce protocols across all systems
         for system, protocols in self.protocols.items():
             for protocol in protocols:
                 if protocol == 'ethical_compliance':
                     self.ethical_monitor.monitor_compliance()
                 elif protocol == 'security_compliance':
                     self.security_compliance.check_security_compliance()
-                # Add more protocol enforcement logic here
+        self.update_ui()
 
     def update_protocols(self):
         # Implement logic to update protocols based on system evolution
-        pass
+        self.enforce_protocols()
+        self.update_ui()
 
     def schedule_protocol_update(self):
         self.scheduler.every().day.at("00:00").do(self._update_protocols)
 
     def _update_protocols(self):
-        # Implement logic to update protocols based on system evolution
         self.enforce_protocols()
         self.update_protocols()
 
@@ -54,6 +53,10 @@ class ProtocolManager:
         while True:
             self.scheduler.run_pending()
             time.sleep(1)
+
+    def update_ui(self):
+        # Logic to update UI with new system capabilities or changes
+        self.socketio.emit('protocol_update', {'message': 'Protocols have been updated'})
 
 protocol_manager = ProtocolManager()
 

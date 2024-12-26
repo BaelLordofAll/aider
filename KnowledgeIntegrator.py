@@ -39,24 +39,27 @@ class KnowledgeIntegrator:
         self.scheduler = schedule.Scheduler()
 
     def integrate_knowledge(self, knowledge):
-        # Implement logic to integrate knowledge into the system
         self.knowledge_base.update(knowledge)
+        self.update_ui()
 
     def update_knowledge(self):
         # Implement logic to update knowledge based on system evolution
-        pass
+        self.update_ui()
 
     def schedule_knowledge_update(self):
         self.scheduler.every().day.at("00:00").do(self._update_knowledge)
 
     def _update_knowledge(self):
-        # Implement logic to update knowledge based on system evolution
         self.update_knowledge()
 
     def run_scheduler(self):
         while True:
             self.scheduler.run_pending()
             time.sleep(1)
+
+    def update_ui(self):
+        # Logic to update UI with new system capabilities or changes
+        self.socketio.emit('knowledge_update', {'message': 'Knowledge has been updated'})
 
 knowledge_integrator = KnowledgeIntegrator()
 

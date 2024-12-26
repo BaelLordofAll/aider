@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocol Manager</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('protocol_update', function(data) {
+            alert(data.message);
+            location.reload(); // Refresh the page to reflect protocol changes
+        });
+    </script>
+</head>
+<body>
+    <h1>Protocol Manager</h1>
+    <button onclick="location.href='/enforce_protocols'">Enforce Protocols</button>
+    <button onclick="location.href='/update_protocols'">Update Protocols</button>
+    <button onclick="location.href='/start_protocol_scheduler'">Start Protocol Scheduler</button>
+    <pre id="protocol_data"></pre>
+</body>
+</html>
