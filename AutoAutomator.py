@@ -7,6 +7,8 @@ import time
 from SystemIntegration import SystemIntegration
 from flask_socketio import SocketIO, emit
 from MasterOrchestrator import MasterOrchestrator
+import os  # Added import for os
+import inspect  # Added import for inspect
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
