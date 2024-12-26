@@ -14,6 +14,7 @@ from ProtocolManager import ProtocolManager
 from KnowledgeIntegrator import KnowledgeIntegrator
 from TrendAnalyzer import TrendAnalyzer
 from ResourceAllocator import ResourceAllocator
+from MonetizationEngine import MonetizationEngine  # New import for monetization
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -31,6 +32,7 @@ class MasterOrchestrator:
         self.knowledge_integrator = KnowledgeIntegrator()
         self.trend_analyzer = TrendAnalyzer()
         self.resource_allocator = ResourceAllocator()
+        self.monetization_engine = MonetizationEngine()  # New attribute for monetization
         self.steps = 50
         self.current_step = 0
 
@@ -45,72 +47,14 @@ class MasterOrchestrator:
             self.protocol_manager.enforce_protocols()
             self.knowledge_integrator.update_knowledge()
             self.trend_analyzer.analyze_trends()
+            self.monetization_engine.optimize_income()  # New method call for income optimization
             self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
             self.is_running = False
 
-    def schedule_orchestration(self):
-        self.scheduler.every().day.at("00:00").do(self.orchestrate_system)
+    # ... rest of the class ...
 
-    def run_scheduler(self):
-        def run_continuously():
-            while True:
-                self.scheduler.run_pending()
-                time.sleep(1)
-        Thread(target=run_continuously).start()
-
-    def auto_run_orchestration(self):
-        if not self.is_running:
-            self.orchestrate_system()
-            return "System orchestration automatically initiated."
-        return "System is currently orchestrating."
-
-    def update_ui(self):
-        pass
-
-    def generate_innovative_idea(self):
-        ideas = [
-            "AI-driven personalized shopping assistant",
-            "Automated content creation for social media influencers",
-            "Real-time AI coaching for sports and fitness",
-            "AI-powered virtual event planning and execution",
-            "Automated legal document analysis and generation",
-            "AI for predictive maintenance in manufacturing",
-            "AI-driven real estate market analysis and investment advice",
-            "Automated customer service with AI empathy",
-            "AI for personalized education and tutoring",
-            "AI-driven health diagnostics and personalized treatment plans"
-        ]
-        return random.choice(ideas)
-
-    def run_auto_scheme(self, num_jobs=50):
-        for step in range(1, num_jobs + 1):
-            self.current_step = step
-            self._execute_step(step)
-            self.socketio.emit('step_completed', {'step': step, 'message': f'Step {step} completed'})
-            time.sleep(60)  # Wait for 1 minute before next step
-            self.resource_allocator.allocate_resources()  # Allocate resources dynamically
-
-    def _execute_step(self, step):
-        if step % 5 == 0:  # Every 5 steps, focus on system integration
-            self.system_integration.integrate_all()
-        elif step % 4 == 0:  # Every 4 steps, focus on ethical compliance
-            self.protocol_manager.enforce_protocols()
-        elif step % 3 == 0:  # Every 3 steps, focus on automation
-            self.auto_automator.automate_automation(self._get_random_function())
-        elif step % 2 == 0:  # Every 2 steps, focus on learning
-            self.auto_automator.learn_from_interactions()
-        else:  # Every other step, focus on evolution
-            self.ba_el.evolve_system()
-            self.knowledge_integrator.update_knowledge()
-            self.trend_analyzer.analyze_trends()
-
-    def _get_random_function(self):
-        # Placeholder for a function that returns a random function from the system
-        def placeholder_function():
-            pass
-        return placeholder_function
-
-master_orchestrator = MasterOrchestrator()
+    def optimize_income(self):
+        self.monetization_engine.optimize_income()
 
 @app.route('/')
 def index():
