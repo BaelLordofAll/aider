@@ -12,6 +12,7 @@ import random
 from BaEl import BaEl
 from ProtocolManager import ProtocolManager
 from KnowledgeIntegrator import KnowledgeIntegrator
+from TrendAnalyzer import TrendAnalyzer
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -27,6 +28,7 @@ class MasterOrchestrator:
         self.ba_el = BaEl()
         self.protocol_manager = ProtocolManager()
         self.knowledge_integrator = KnowledgeIntegrator()
+        self.trend_analyzer = TrendAnalyzer()
         self.steps = 50
         self.current_step = 0
 
@@ -40,6 +42,7 @@ class MasterOrchestrator:
             self.ba_el.evolve_system()
             self.protocol_manager.enforce_protocols()
             self.knowledge_integrator.update_knowledge()
+            self.trend_analyzer.analyze_trends()
             self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
             self.is_running = False
 
@@ -96,6 +99,7 @@ class MasterOrchestrator:
         else:  # Every other step, focus on evolution
             self.ba_el.evolve_system()
             self.knowledge_integrator.update_knowledge()
+            self.trend_analyzer.analyze_trends()
 
     def _get_random_function(self):
         # Placeholder for a function that returns a random function from the system
