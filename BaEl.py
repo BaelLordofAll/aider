@@ -91,13 +91,13 @@ def auto_run_evolution():
 def set_automation_settings():
     interval = int(request.form['automation_interval'])
     ba_el.set_automation_settings(interval)
-    return jsonify({"status": f"Automation interval set to {interval} minutes. Let's automate!"})
+    return jsonify({"status": f"Hey, automation interval set to {interval} minutes. Let's automate!"})
 
 @app.route('/set_protocol_settings', methods=['POST'])
 def set_protocol_settings():
     interval = int(request.form['protocol_update_interval'])
     ba_el.set_protocol_settings(interval)
-    return jsonify({"status": f"Protocol update interval set to {interval} hours. Stay secure!"})
+    return jsonify({"status": f"Hey, protocol update interval set to {interval} hours. Stay secure!"})
 
 @app.route('/enforce_protocols', methods=['POST'])
 def enforce_protocols():
