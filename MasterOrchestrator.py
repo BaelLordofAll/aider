@@ -14,7 +14,7 @@ from ProtocolManager import ProtocolManager
 from KnowledgeIntegrator import KnowledgeIntegrator
 from TrendAnalyzer import TrendAnalyzer
 from ResourceAllocator import ResourceAllocator
-from MonetizationEngine import MonetizationEngine  # New import for monetization
+from MonetizationEngine import MonetizationEngine
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -32,7 +32,7 @@ class MasterOrchestrator:
         self.knowledge_integrator = KnowledgeIntegrator()
         self.trend_analyzer = TrendAnalyzer()
         self.resource_allocator = ResourceAllocator()
-        self.monetization_engine = MonetizationEngine()  # New attribute for monetization
+        self.monetization_engine = MonetizationEngine()
         self.steps = 50
         self.current_step = 0
 
@@ -47,7 +47,7 @@ class MasterOrchestrator:
             self.protocol_manager.enforce_protocols()
             self.knowledge_integrator.update_knowledge()
             self.trend_analyzer.analyze_trends()
-            self.monetization_engine.optimize_income()  # New method call for income optimization
+            self.monetization_engine.optimize_income()
             self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
             self.is_running = False
 
@@ -80,7 +80,7 @@ class MasterOrchestrator:
     def optimize_income(self):
         self.monetization_engine.optimize_income()
 
-master_orchestrator = MasterOrchestrator()  # Define the instance here
+master_orchestrator = MasterOrchestrator()
 
 @app.route('/')
 def index():
