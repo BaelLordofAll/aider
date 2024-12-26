@@ -23,7 +23,8 @@ class BaEl:
         self.settings = {
             'evolution_interval': 24,
             'automation_interval': 60,
-            'power_mode': 'normal'  # New setting for power control
+            'power_mode': 'normal',
+            'stability_mode': 'high'
         }
 
     def evolve_system(self):
@@ -73,6 +74,12 @@ class BaEl:
             return f"Hey, power mode set to {mode}."
         return "Hey, invalid power mode. Choose from 'low', 'normal', or 'high'."
 
+    def set_stability_mode(self, mode):
+        if mode in ['low', 'medium', 'high']:
+            self.settings['stability_mode'] = mode
+            return f"Hey, stability mode set to {mode}."
+        return "Hey, invalid stability mode. Choose from 'low', 'medium', or 'high'."
+
 ba_el = BaEl()
 
 @app.route('/')
@@ -115,6 +122,11 @@ def enforce_protocols():
 def set_power_mode():
     mode = request.form['power_mode']
     return jsonify({"status": ba_el.set_power_mode(mode)})
+
+@app.route('/set_stability_mode', methods=['POST'])
+def set_stability_mode():
+    mode = request.form['stability_mode']
+    return jsonify({"status": ba_el.set_stability_mode(mode)})
 
 @socketio.on('connect')
 def test_connect():
