@@ -55,13 +55,13 @@ class AutoAutomator:
             self.automations[func_name] = automation_script
             exec(automation_script, globals())
         else:
-            raise ValueError("Automation script does not comply with ethical guidelines.")
+            raise ValueError("Hey, this automation script doesn't comply with our ethical guidelines!")
 
     def _generate_automation_script(self, func_name, func_source):
         return f"""
 def {func_name}_automation():
     {func_source}
-    # Additional automation logic here
+    # Hey, here's some additional automation logic
 """
 
     def evolve_system(self):
@@ -69,12 +69,12 @@ def {func_name}_automation():
             self.learning_model.update(self.monitor_data)
         
         for func_name, script in self.automations.items():
-            # Here, you would implement logic to improve the script based on performance metrics
+            # Hey, here's where we would implement logic to improve the script based on performance metrics
             pass
         
         self.system_integration.integrate_all()
         self.master_orchestrator.orchestrate_system()
-        self.socketio.emit('system_evolved', {'message': 'System has evolved'})
+        self.socketio.emit('system_evolved', {'message': 'Hey, the system just got a bit smarter!'})
         self._update_ui()
 
     def _update_ui(self):
@@ -90,16 +90,18 @@ def {func_name}_automation():
         self.scheduler.every().day.at("00:00").do(self.evolve_system)
 
     def run_scheduler(self):
-        while True:
-            self.scheduler.run_pending()
-            time.sleep(1)
+        def run_continuously():
+            while True:
+                self.scheduler.run_pending()
+                time.sleep(1)
+        Thread(target=run_continuously).start()
 
     def auto_run_evolution(self):
         self.evolve_system()
-        return "System evolution automatically initiated."
+        return "Hey, system evolution automatically initiated."
 
     def train_agent(self, agent_name, data):
-        # Implement logic to train an agent using the provided data
+        # Hey, here's where we would implement logic to train an agent using the provided data
         pass
 
 auto_automator = AutoAutomator()
@@ -116,7 +118,7 @@ def monitor():
 @app.route('/learn', methods=['POST'])
 def learn():
     auto_automator.learn_from_interactions()
-    return jsonify({"status": "Learning process initiated."})
+    return jsonify({"status": "Hey, learning process initiated."})
 
 @app.route('/automate', methods=['POST'])
 def automate():
@@ -124,18 +126,18 @@ def automate():
     def placeholder_function():
         pass
     auto_automator.automate_automation(placeholder_function)
-    return jsonify({"status": "Automation process initiated."})
+    return jsonify({"status": "Hey, automation process initiated."})
 
 @app.route('/evolve', methods=['POST'])
 def evolve():
     auto_automator.evolve_system()
-    return jsonify({"status": "System evolution initiated."})
+    return jsonify({"status": "Hey, system evolution initiated."})
 
 @app.route('/start_scheduler', methods=['POST'])
 def start_scheduler():
     auto_automator.schedule_evolution()
     auto_automator.run_scheduler()
-    return jsonify({"status": "Scheduler started."})
+    return jsonify({"status": "Hey, scheduler started."})
 
 @app.route('/auto_run_evolution', methods=['GET'])
 def auto_run_evolution():
@@ -146,11 +148,11 @@ def train_agent():
     agent_name = request.form['agent_name']
     data = request.json
     auto_automator.train_agent(agent_name, data)
-    return jsonify({"status": f"Training for {agent_name} initiated."})
+    return jsonify({"status": f"Hey, training for {agent_name} initiated."})
 
 @socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'Connected'})
+    emit('my response', {'data': 'Hey, welcome aboard! You\'re now connected to the Auto Automator.'})
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

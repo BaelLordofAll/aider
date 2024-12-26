@@ -1,8 +1,10 @@
 from abacusai import ApiClient, InternetDominion
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 # Create an internet dominion project
 dominion_project = InternetDominion(client, 'Internet Dominion')
@@ -20,17 +22,30 @@ def define_scope():
         domains=domains,
         services=services
     )
-    return "Scope defined."
+    socketio.emit('scope_defined', {'message': 'Hey, the scope is set!'})
+    return "Hey, scope defined."
 
 @app.route('/automate_control')
 def automate_control():
     dominion_project.automate_control()
-    return "Control automation completed."
+    socketio.emit('control_automated', {'message': 'Hey, control automation completed!'})
+    return "Hey, control automation completed."
 
 @app.route('/integrate_cybersecurity')
 def integrate_cybersecurity():
     dominion_project.integrate_with_cybersecurity()
-    return "Cybersecurity integration completed."
+    socketio.emit('cybersecurity_integrated', {'message': 'Hey, cybersecurity integration completed!'})
+    return "Hey, cybersecurity integration completed."
+
+@app.route('/evolve_dominion', methods=['POST'])
+def evolve_dominion():
+    dominion_project.evolve()
+    socketio.emit('dominion_evolved', {'message': 'Hey, the dominion just got smarter!'})
+    return jsonify({"status": "Internet Dominion evolution initiated."})
+
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Hey, welcome aboard! You\'re now connected to the Internet Dominion.'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)
