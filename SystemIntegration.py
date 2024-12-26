@@ -13,6 +13,8 @@ from APIUsageMonitor import UsageMonitor
 from MemeEngine import MemeGenerator
 from ViralContentGenerator import ContentGenerator
 from CrowdsourcingEngagement import CrowdsourcingEngagement
+from KnowledgeIntegrator import KnowledgeIntegrator
+from ProtocolManager import ProtocolManager
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -30,6 +32,8 @@ api_usage_monitor = UsageMonitor(client, 'API Usage Monitor')
 meme_engine = MemeGenerator(client, 'Meme Engine')
 content_generator = ContentGenerator(client, 'Viral Content Generator')
 crowdsourcing = CrowdsourcingEngagement(client, 'Crowdsourcing Engagement')
+knowledge_integrator = KnowledgeIntegrator()
+protocol_manager = ProtocolManager()
 
 class SystemIntegration:
     def __init__(self):
@@ -45,7 +49,9 @@ class SystemIntegration:
             'api_usage_monitor': api_usage_monitor,
             'meme_engine': meme_engine,
             'content_generator': content_generator,
-            'crowdsourcing': crowdsourcing
+            'crowdsourcing': crowdsourcing,
+            'knowledge_integrator': knowledge_integrator,
+            'protocol_manager': protocol_manager
         }
 
     def integrate_all(self):
