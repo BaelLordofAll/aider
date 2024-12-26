@@ -27,6 +27,8 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
   - **Start Scheduler**: Start the daily evolution scheduler.
   - **Auto Run Evolution**: Automatically evolve the system.
   - **Generate Idea**: Generate innovative ideas for monetization.
+  - **Switch LLM**: Switch between different Language Models.
+  - **Train Agent**: Train agents with new data.
 
 - **System Integration**: Access at `localhost:5000/integrate_all`
   - **Integrate All**: Integrate all system components for seamless operation.
@@ -58,6 +60,10 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 - **Ba'el**: An advanced orchestrator for system evolution and innovation.
 
 - **Innovative Idea Generation**: Generates ideas for monetization and system enhancement.
+
+- **LLM Management**: Ability to switch between different Language Models for content generation and analysis.
+
+- **Agent Training**: Train AI agents with new data to enhance system capabilities.
 
 ### Ethical Guidelines
 

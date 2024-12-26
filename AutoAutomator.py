@@ -1,7 +1,4 @@
-from abacusai import ApiClient
-import inspect
-import os
-from typing import Callable
+from abacusai import ApiClient, ReinforcementLearningModel
 from flask import Flask, render_template, request, jsonify
 import json
 from datetime import datetime
@@ -10,7 +7,6 @@ import time
 from SystemIntegration import SystemIntegration
 from flask_socketio import SocketIO, emit
 from MasterOrchestrator import MasterOrchestrator
-from abacusai import ReinforcementLearningModel
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -19,8 +15,8 @@ socketio = SocketIO(app)
 class AutoAutomator:
     def __init__(self):
         self.learning_model = ReinforcementLearningModel(client, 'Reinforcement Learning Model')
-        self.automations = {}  # Dictionary to store automation scripts
-        self.monitor_data = {}  # Dictionary to store monitoring data
+        self.automations = {}
+        self.monitor_data = {}
         self.ethical_guidelines = self._load_ethical_guidelines()
         self.scheduler = schedule.Scheduler()
         self.system_integration = SystemIntegration()
@@ -41,14 +37,13 @@ class AutoAutomator:
         self.socketio.emit('system_monitor', self.monitor_data)
 
     def _get_user_interactions(self):
-        # Implement logic to capture user interactions
         return []
 
     def learn_from_interactions(self):
         if self.learning_model:
             self.learning_model.fit(self.monitor_data)
 
-    def automate_automation(self, function: Callable):
+    def automate_automation(self, function):
         func_name = function.__name__
         func_source = inspect.getsource(function)
         
@@ -59,7 +54,7 @@ class AutoAutomator:
         else:
             raise ValueError("Automation script does not comply with ethical guidelines.")
 
-    def _generate_automation_script(self, func_name: str, func_source: str) -> str:
+    def _generate_automation_script(self, func_name, func_source):
         return f"""
 def {func_name}_automation():
     {func_source}
@@ -80,7 +75,6 @@ def {func_name}_automation():
         self._update_ui()
 
     def _update_ui(self):
-        # Logic to update UI with new system capabilities or changes
         pass
 
     def check_ethical_compliance(self, automation_script):
@@ -100,6 +94,10 @@ def {func_name}_automation():
     def auto_run_evolution(self):
         self.evolve_system()
         return "System evolution automatically initiated."
+
+    def train_agent(self, agent_name, data):
+        # Implement logic to train an agent using the provided data
+        pass
 
 auto_automator = AutoAutomator()
 
@@ -139,6 +137,13 @@ def start_scheduler():
 @app.route('/auto_run_evolution', methods=['GET'])
 def auto_run_evolution():
     return jsonify({"status": auto_automator.auto_run_evolution()})
+
+@app.route('/train_agent', methods=['POST'])
+def train_agent():
+    agent_name = request.form['agent_name']
+    data = request.json
+    auto_automator.train_agent(agent_name, data)
+    return jsonify({"status": f"Training for {agent_name} initiated."})
 
 @socketio.on('connect')
 def test_connect():
