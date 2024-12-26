@@ -13,6 +13,7 @@ from BaEl import BaEl
 from ProtocolManager import ProtocolManager
 from KnowledgeIntegrator import KnowledgeIntegrator
 from TrendAnalyzer import TrendAnalyzer
+from ResourceAllocator import ResourceAllocator
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -29,6 +30,7 @@ class MasterOrchestrator:
         self.protocol_manager = ProtocolManager()
         self.knowledge_integrator = KnowledgeIntegrator()
         self.trend_analyzer = TrendAnalyzer()
+        self.resource_allocator = ResourceAllocator()
         self.steps = 50
         self.current_step = 0
 
@@ -86,6 +88,7 @@ class MasterOrchestrator:
             self._execute_step(step)
             self.socketio.emit('step_completed', {'step': step, 'message': f'Step {step} completed'})
             time.sleep(60)  # Wait for 1 minute before next step
+            self.resource_allocator.allocate_resources()  # Allocate resources dynamically
 
     def _execute_step(self, step):
         if step % 5 == 0:  # Every 5 steps, focus on system integration

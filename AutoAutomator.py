@@ -10,6 +10,7 @@ import time
 from SystemIntegration import SystemIntegration
 from flask_socketio import SocketIO, emit
 from MasterOrchestrator import MasterOrchestrator
+from abacusai import ReinforcementLearningModel
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -17,7 +18,7 @@ socketio = SocketIO(app)
 
 class AutoAutomator:
     def __init__(self):
-        self.learning_model = None  # Placeholder for AI model for learning
+        self.learning_model = ReinforcementLearningModel(client, 'Reinforcement Learning Model')
         self.automations = {}  # Dictionary to store automation scripts
         self.monitor_data = {}  # Dictionary to store monitoring data
         self.ethical_guidelines = self._load_ethical_guidelines()
