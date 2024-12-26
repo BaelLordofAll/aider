@@ -7,6 +7,7 @@ import json
 from datetime import datetime
 import schedule
 import time
+from threading import Thread
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -18,25 +19,37 @@ class MasterOrchestrator:
         self.system_integration = SystemIntegration()
         self.scheduler = schedule.Scheduler()
         self.socketio = socketio
+        self.is_running = False
 
     def orchestrate_system(self):
-        self.auto_automator.monitor_system()
-        self.auto_automator.learn_from_interactions()
-        self.auto_automator.evolve_system()
-        self.system_integration.integrate_all()
-        self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
+        if not self.is_running:
+            self.is_running = True
+            self.auto_automator.monitor_system()
+            self.auto_automator.learn_from_interactions()
+            self.auto_automator.evolve_system()
+            self.system_integration.integrate_all()
+            self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
+            self.is_running = False
 
     def schedule_orchestration(self):
         self.scheduler.every().day.at("00:00").do(self.orchestrate_system)
 
     def run_scheduler(self):
-        while True:
-            self.scheduler.run_pending()
-            time.sleep(1)
+        def run_continuously():
+            while True:
+                self.scheduler.run_pending()
+                time.sleep(1)
+        Thread(target=run_continuously).start()
 
     def auto_run_orchestration(self):
-        self.orchestrate_system()
-        return "System orchestration automatically initiated."
+        if not self.is_running:
+            self.orchestrate_system()
+            return "System orchestration automatically initiated."
+        return "System is currently orchestrating."
+
+    def update_ui(self):
+        # Logic to update UI with new system capabilities or changes
+        pass
 
 master_orchestrator = MasterOrchestrator()
 

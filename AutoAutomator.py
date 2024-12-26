@@ -52,8 +52,11 @@ class AutoAutomator:
         func_source = inspect.getsource(function)
         
         automation_script = self._generate_automation_script(func_name, func_source)
-        self.automations[func_name] = automation_script
-        exec(automation_script, globals())
+        if self.check_ethical_compliance(automation_script):
+            self.automations[func_name] = automation_script
+            exec(automation_script, globals())
+        else:
+            raise ValueError("Automation script does not comply with ethical guidelines.")
 
     def _generate_automation_script(self, func_name: str, func_source: str) -> str:
         return f"""
@@ -80,7 +83,7 @@ def {func_name}_automation():
         pass
 
     def check_ethical_compliance(self, automation_script):
-        for guideline in self.ethical_guidelines:
+        for guideline in self.ethical_guidelines['guidelines']:
             if guideline not in automation_script:
                 return False
         return True
