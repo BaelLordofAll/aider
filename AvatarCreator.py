@@ -1,21 +1,39 @@
 from abacusai import ApiClient, AvatarCreator
+from flask import Flask, render_template, request
 
 client = ApiClient(api_key='your_api_key')
+app = Flask(__name__)
 
 # Create an avatar project
 avatar_project = AvatarCreator(client, 'Real-like Avatars')
 
-# Define avatar characteristics
-avatar_project.define_avatar(
-    name='John Doe',
-    age=35,
-    gender='Male',
-    ethnicity='Caucasian',
-    personality_traits=['Friendly', 'Ambitious']
-)
+@app.route('/')
+def index():
+    return render_template('avatar_customization.html')
 
-# Generate the avatar
-avatar = avatar_project.create_avatar()
+@app.route('/create_avatar', methods=['POST'])
+def create_avatar():
+    name = request.form['name']
+    age = int(request.form['age'])
+    gender = request.form['gender']
+    ethnicity = request.form['ethnicity']
+    personality_traits = request.form.getlist('personality_traits')
+    
+    avatar_project.define_avatar(
+        name=name,
+        age=age,
+        gender=gender,
+        ethnicity=ethnicity,
+        personality_traits=personality_traits
+    )
+    
+    avatar = avatar_project.create_avatar()
+    return render_template('avatar_preview.html', avatar=avatar)
 
-# Integrate with other systems for interaction
-avatar_project.integrate_with_social_media()
+@app.route('/integrate_social_media')
+def integrate_social_media():
+    avatar_project.integrate_with_social_media()
+    return "Social media integration completed."
+
+if __name__ == '__main__':
+    app.run(debug=True)
