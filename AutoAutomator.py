@@ -9,6 +9,7 @@ import schedule
 import time
 from SystemIntegration import SystemIntegration
 from flask_socketio import SocketIO, emit
+from MasterOrchestrator import MasterOrchestrator
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
@@ -22,6 +23,7 @@ class AutoAutomator:
         self.ethical_guidelines = self._load_ethical_guidelines()
         self.scheduler = schedule.Scheduler()
         self.system_integration = SystemIntegration()
+        self.master_orchestrator = MasterOrchestrator()
         self.socketio = socketio
 
     def _load_ethical_guidelines(self):
@@ -69,6 +71,7 @@ def {func_name}_automation():
             pass
         
         self.system_integration.integrate_all()
+        self.master_orchestrator.orchestrate_system()
         self.socketio.emit('system_evolved', {'message': 'System has evolved'})
         self._update_ui()
 

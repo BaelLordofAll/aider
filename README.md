@@ -13,12 +13,13 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 
 2. **Start the Flask server:**
    ```bash
-   python AutoAutomator.py
+   python MasterOrchestrator.py
    ```
 
 ### User Interface
 
-- **Auto Automation Dashboard**: Access at `localhost:5000/`
+- **Master Orchestrator Dashboard**: Access at `localhost:5000/`
+  - **Orchestrate**: Initiate system orchestration for comprehensive management.
   - **Monitor**: View real-time system performance metrics.
   - **Learn**: Initiate the learning process from user interactions.
   - **Automate**: Automate the creation of automation scripts.
@@ -42,6 +43,8 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 - **Integration**: All components are integrated to work synchronously, enhancing the system's capabilities.
 
 - **Auto-Run Evolution**: Automatically initiates system evolution to keep the system up-to-date and optimized.
+
+- **Master Orchestrator**: Provides high-level control and orchestration of the entire system.
 
 ### Ethical Guidelines
 
