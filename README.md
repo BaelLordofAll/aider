@@ -41,6 +41,8 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 
 - **Integration**: All components are integrated to work synchronously, enhancing the system's capabilities.
 
+- **Auto-Run Evolution**: Automatically initiates system evolution to keep the system up-to-date and optimized.
+
 ### Ethical Guidelines
 
 The system operates under strict ethical guidelines to ensure responsible use:

@@ -11,6 +11,7 @@
         });
         socket.on('system_evolved', function(data) {
             alert(data.message);
+            location.reload(); // Refresh the page to reflect system changes
         });
     </script>
 </head>

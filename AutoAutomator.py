@@ -70,6 +70,11 @@ def {func_name}_automation():
         
         self.system_integration.integrate_all()
         self.socketio.emit('system_evolved', {'message': 'System has evolved'})
+        self._update_ui()
+
+    def _update_ui(self):
+        # Logic to update UI with new system capabilities or changes
+        pass
 
     def check_ethical_compliance(self, automation_script):
         for guideline in self.ethical_guidelines:
