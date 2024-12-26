@@ -64,7 +64,7 @@ class BaEl:
 
     def enforce_protocols(self):
         # Logic to enforce ethical and security protocols
-        self.socketio.emit('protocol_update', {'message': 'Hey, just made sure everything's on the up and up. Stay safe out there!'})
+        self.socketio.emit('protocol_update', {'message': 'Hey, just made sure everything\'s on the up and up. Stay safe out there!'})
 
 ba_el = BaEl()
 
@@ -106,7 +106,7 @@ def enforce_protocols():
 
 @socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'Hey, welcome aboard! You're now connected to Ba\'el.'})
+    emit('my response', {'data': 'Hey, welcome aboard! You\'re now connected to Ba\'el.'})
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
