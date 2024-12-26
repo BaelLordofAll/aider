@@ -78,6 +78,10 @@ def {func_name}_automation():
             self.scheduler.run_pending()
             time.sleep(1)
 
+    def auto_run_evolution(self):
+        self.evolve_system()
+        return "System evolution automatically initiated."
+
 auto_automator = AutoAutomator()
 
 @app.route('/')
@@ -112,6 +116,10 @@ def start_scheduler():
     auto_automator.schedule_evolution()
     auto_automator.run_scheduler()
     return "Scheduler started."
+
+@app.route('/auto_run_evolution', methods=['GET'])
+def auto_run_evolution():
+    return auto_automator.auto_run_evolution()
 
 if __name__ == '__main__':
     app.run(debug=True)
