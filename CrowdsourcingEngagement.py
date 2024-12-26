@@ -15,10 +15,12 @@ def index():
 def launch_campaign():
     content = request.form['content']
     engagement_goal = request.form['engagement_goal']
+    incentives = request.form.getlist('incentives')
     
     campaign = crowdsourcing.launch_campaign(
         content=content,
-        engagement_goal=engagement_goal
+        engagement_goal=engagement_goal,
+        incentives=incentives
     )
     return "Campaign launched."
 
