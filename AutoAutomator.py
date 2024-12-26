@@ -2,15 +2,17 @@ from abacusai import ApiClient
 import inspect
 import os
 from typing import Callable
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import json
 from datetime import datetime
 import schedule
 import time
 from SystemIntegration import SystemIntegration
+from flask_socketio import SocketIO, emit
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 class AutoAutomator:
     def __init__(self):
@@ -20,6 +22,7 @@ class AutoAutomator:
         self.ethical_guidelines = self._load_ethical_guidelines()
         self.scheduler = schedule.Scheduler()
         self.system_integration = SystemIntegration()
+        self.socketio = socketio
 
     def _load_ethical_guidelines(self):
         with open('ethical_guidelines.json', 'r') as file:
@@ -32,8 +35,10 @@ class AutoAutomator:
             'disk_usage': os.disk_usage('/').percent,
             'user_interactions': self._get_user_interactions()
         }
+        self.socketio.emit('system_monitor', self.monitor_data)
 
     def _get_user_interactions(self):
+        # Implement logic to capture user interactions
         return []
 
     def learn_from_interactions(self):
@@ -63,8 +68,8 @@ def {func_name}_automation():
             # Here, you would implement logic to improve the script based on performance metrics
             pass
         
-        # Create new automation scripts based on emerging needs
         self.system_integration.integrate_all()
+        self.socketio.emit('system_evolved', {'message': 'System has evolved'})
 
     def check_ethical_compliance(self, automation_script):
         for guideline in self.ethical_guidelines:
@@ -93,12 +98,12 @@ def index():
 @app.route('/monitor', methods=['GET'])
 def monitor():
     auto_automator.monitor_system()
-    return render_template('monitoring.html', data=auto_automator.monitor_data)
+    return jsonify(auto_automator.monitor_data)
 
 @app.route('/learn', methods=['POST'])
 def learn():
     auto_automator.learn_from_interactions()
-    return "Learning process initiated."
+    return jsonify({"status": "Learning process initiated."})
 
 @app.route('/automate', methods=['POST'])
 def automate():
@@ -106,22 +111,26 @@ def automate():
     def placeholder_function():
         pass
     auto_automator.automate_automation(placeholder_function)
-    return "Automation process initiated."
+    return jsonify({"status": "Automation process initiated."})
 
 @app.route('/evolve', methods=['POST'])
 def evolve():
     auto_automator.evolve_system()
-    return "System evolution initiated."
+    return jsonify({"status": "System evolution initiated."})
 
 @app.route('/start_scheduler', methods=['POST'])
 def start_scheduler():
     auto_automator.schedule_evolution()
     auto_automator.run_scheduler()
-    return "Scheduler started."
+    return jsonify({"status": "Scheduler started."})
 
 @app.route('/auto_run_evolution', methods=['GET'])
 def auto_run_evolution():
-    return auto_automator.auto_run_evolution()
+    return jsonify({"status": auto_automator.auto_run_evolution()})
+
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Automation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('system_monitor', function(data) {
+            document.getElementById('monitor_data').innerHTML = JSON.stringify(data, null, 2);
+        });
+        socket.on('system_evolved', function(data) {
+            alert(data.message);
+        });
+    </script>
+</head>
+<body>
+    <h1>Auto Automation System</h1>
+    <button onclick="location.href='/monitor'">Monitor System</button>
+    <button onclick="location.href='/learn'">Initiate Learning</button>
+    <button onclick="location.href='/automate'">Automate Automation</button>
+    <button onclick="location.href='/evolve'">Evolve System</button>
+    <button onclick="location.href='/start_scheduler'">Start Scheduler</button>
+    <button onclick="location.href='/auto_run_evolution'">Auto Run Evolution</button>
+    <pre id="monitor_data"></pre>
+</body>
+</html>

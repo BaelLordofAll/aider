@@ -1,5 +1,5 @@
 from abacusai import ApiClient
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from AutoAutomator import AutoAutomator
 from AvatarCreator import AvatarCreator
 from VoiceAssistant import VoiceAssistant
@@ -49,15 +49,9 @@ class SystemIntegration:
         }
 
     def integrate_all(self):
-        # Here, you would implement logic to integrate all components
-        # This could involve:
-        # - Setting up communication channels between components
-        # - Ensuring data flow and synchronization
-        # - Handling dependencies and conflicts
-        # - Automating the integration process
         for component in self.components.values():
             component.integrate_with_system()
-        return "Integration process completed."
+        return jsonify({"status": "Integration process completed."})
 
 @app.route('/')
 def index():
