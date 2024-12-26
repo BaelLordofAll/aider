@@ -24,5 +24,13 @@
     <button onclick="location.href='/start_scheduler'">Start Scheduler</button>
     <button onclick="location.href='/auto_run_evolution'">Auto Run Evolution</button>
     <pre id="monitor_data"></pre>
+    <div id="automation_settings">
+        <h2>Automation Settings</h2>
+        <form action="/set_automation_settings" method="post">
+            <label for="automation_interval">Automation Interval (in minutes):</label>
+            <input type="number" id="automation_interval" name="automation_interval" value="60">
+            <input type="submit" value="Set">
+        </form>
+    </div>
 </body>
 </html>

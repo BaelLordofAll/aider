@@ -20,6 +20,10 @@ class BaEl:
         self.scheduler = schedule.Scheduler()
         self.socketio = socketio
         self.is_running = False
+        self.settings = {
+            'evolution_interval': 24,  # Default evolution interval in hours
+            'automation_interval': 60  # Default automation interval in minutes
+        }
 
     def evolve_system(self):
         if not self.is_running:
@@ -32,7 +36,7 @@ class BaEl:
             self.is_running = False
 
     def schedule_evolution(self):
-        self.scheduler.every().day.at("00:00").do(self.evolve_system)
+        self.scheduler.every(self.settings['evolution_interval']).hours.do(self.evolve_system)
 
     def run_scheduler(self):
         def run_continuously():
@@ -50,6 +54,14 @@ class BaEl:
     def update_ui(self):
         # Logic to update UI with new system capabilities or changes
         pass
+
+    def set_automation_settings(self, interval):
+        self.settings['automation_interval'] = interval
+        self.auto_automator.set_automation_interval(interval)
+
+    def set_protocol_settings(self, interval):
+        self.settings['evolution_interval'] = interval
+        self.schedule_evolution()
 
 ba_el = BaEl()
 
@@ -71,6 +83,18 @@ def start_scheduler():
 @app.route('/auto_run_evolution', methods=['GET'])
 def auto_run_evolution():
     return jsonify({"status": ba_el.auto_run_evolution()})
+
+@app.route('/set_automation_settings', methods=['POST'])
+def set_automation_settings():
+    interval = int(request.form['automation_interval'])
+    ba_el.set_automation_settings(interval)
+    return jsonify({"status": f"Automation interval set to {interval} minutes."})
+
+@app.route('/set_protocol_settings', methods=['POST'])
+def set_protocol_settings():
+    interval = int(request.form['protocol_update_interval'])
+    ba_el.set_protocol_settings(interval)
+    return jsonify({"status": f"Protocol update interval set to {interval} hours."})
 
 @socketio.on('connect')
 def test_connect():

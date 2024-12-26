@@ -30,11 +30,14 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 
 - **System Integration**: Access at `localhost:5000/integrate_all`
   - **Integrate All**: Integrate all system components for seamless operation.
+  - **Integrate Individual**: Selectively integrate individual components.
 
 - **Ba'el Dashboard**: Access at `localhost:5000/ba_el`
   - **Evolve**: Trigger system evolution by Ba'el.
   - **Start Scheduler**: Start Ba'el's daily evolution scheduler.
   - **Auto Run Evolution**: Automatically evolve the system by Ba'el.
+  - **Set Automation Settings**: Adjust the automation interval.
+  - **Set Protocol Settings**: Adjust the protocol update interval.
 
 ### Key Features
 

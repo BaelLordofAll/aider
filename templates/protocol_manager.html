@@ -18,5 +18,13 @@
     <button onclick="location.href='/update_protocols'">Update Protocols</button>
     <button onclick="location.href='/start_protocol_scheduler'">Start Protocol Scheduler</button>
     <pre id="protocol_data"></pre>
+    <div id="protocol_settings">
+        <h2>Protocol Settings</h2>
+        <form action="/set_protocol_settings" method="post">
+            <label for="protocol_update_interval">Protocol Update Interval (in hours):</label>
+            <input type="number" id="protocol_update_interval" name="protocol_update_interval" value="24">
+            <input type="submit" value="Set">
+        </form>
+    </div>
 </body>
 </html>
