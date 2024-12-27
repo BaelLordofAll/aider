@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Stability</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('system_monitor', function(data) {
+            document.getElementById('monitor_data').innerHTML = JSON.stringify(data, null, 2);
+        });
+    </script>
+</head>
+<body>
+    <h1>System Stability</h1>
+    <button onclick="location.href='/monitor_stability'">Monitor Stability</button>
+    <pre id="monitor_data"></pre>
+</body>
+</html>
