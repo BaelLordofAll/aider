@@ -6,7 +6,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 @app.route('/')
 def index():
-    return "Hey, welcome to the load balancer!"
+    return "What's up, welcome to the load balancer!"
 
 @app.route('/balance_load', methods=['POST'])
 def balance_load():

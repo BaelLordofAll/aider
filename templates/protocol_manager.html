@@ -13,15 +13,15 @@
     </script>
 </head>
 <body>
-    <h1>Hey, manage your protocols here</h1>
-    <button onclick="location.href='/enforce_protocols'">Hey, enforce those protocols</button>
-    <button onclick="location.href='/update_protocols'">Hey, update the protocols</button>
-    <button onclick="location.href='/start_protocol_scheduler'">Hey, start the protocol scheduler</button>
+    <h1>What's up, manage your protocols here</h1>
+    <button onclick="location.href='/enforce_protocols'">What's up, enforce those protocols</button>
+    <button onclick="location.href='/update_protocols'">What's up, update the protocols</button>
+    <button onclick="location.href='/start_protocol_scheduler'">What's up, start the protocol scheduler</button>
     <pre id="protocol_data"></pre>
     <div id="protocol_settings">
-        <h2>Hey, set your protocol settings</h2>
+        <h2>What's up, set your protocol settings</h2>
         <form action="/set_protocol_settings" method="post">
-            <label for="protocol_update_interval">Hey, how often should we update protocols (in hours)?</label>
+            <label for="protocol_update_interval">What's up, how often should we update protocols (in hours)?</label>
             <input type="number" id="protocol_update_interval" name="protocol_update_interval" value="24">
             <input type="submit" value="Set">
         </form>
