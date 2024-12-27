@@ -1,5 +1,6 @@
 from abacusai import ApiClient
 from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
 import json
 from datetime import datetime
 import schedule
@@ -8,6 +9,7 @@ from threading import Thread
 
 client = ApiClient(api_key='your_api_key')
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 class SecurityCompliance:
     def __init__(self):
@@ -19,7 +21,14 @@ class SecurityCompliance:
 
     def monitor_security(self):
         # Implement real-time security monitoring
-        pass
+        while True:
+            security_status = self._check_security_status()
+            socketio.emit('security_update', {'status': security_status})
+            time.sleep(60)  # Check every minute
+
+    def _check_security_status(self):
+        # Logic to check current security status
+        return "All systems secure"
 
     def update_security_measures(self):
         # Implement logic to update security measures based on system evolution
@@ -46,7 +55,7 @@ def check_security_compliance():
 
 @app.route('/start_security_monitoring', methods=['POST'])
 def start_security_monitoring():
-    security_compliance.monitor_security()
+    Thread(target=security_compliance.monitor_security).start()
     return jsonify({"status": "Security monitoring started."})
 
 @app.route('/update_security_measures', methods=['POST'])
@@ -55,4 +64,4 @@ def update_security_measures():
     return jsonify({"status": "Security measures updated."})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)

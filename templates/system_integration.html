@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>System Integration</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('system_monitor', function(data) {
+            document.getElementById('system_status').innerHTML = JSON.stringify(data, null, 2);
+        });
+    </script>
 </head>
 <body>
     <h1>What's up, welcome to System Integration!</h1>
@@ -27,5 +34,6 @@
             <li><a href="/system_power">What's up, boost system power</a></li>
         </ul>
     </div>
+    <div id="system_status"></div>
 </body>
 </html>
