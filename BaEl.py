@@ -34,7 +34,7 @@ class BaEl:
             self.auto_automator.learn_from_interactions()
             self.auto_automator.evolve_system()
             self.system_integration.integrate_all()
-            self.socketio.emit('system_evolved', {'message': 'What's up, the system just got a bit smarter! Check out the new stuff!'})
+            self.socketio.emit('system_evolved', {'message': "What's up, the system just got a bit smarter! Check out the new stuff!"})
             self.is_running = False
 
     def schedule_evolution(self):
@@ -66,7 +66,7 @@ class BaEl:
 
     def enforce_protocols(self):
         # Logic to enforce ethical and security protocols
-        self.socketio.emit('protocol_update', {'message': 'What's up, just made sure everything\'s on the up and up. Stay safe out there!'})
+        self.socketio.emit('protocol_update', {'message': "What's up, just made sure everything's on the up and up. Stay safe out there!"})
 
     def set_power_mode(self, mode):
         if mode in ['low', 'normal', 'high']:
@@ -169,7 +169,7 @@ def run_for_20_minutes():
 
 @socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'What's up, welcome aboard! You\'re now connected to Ba\'el.'})
+    emit('my response', {'data': "What's up, welcome aboard! You're now connected to Ba'el."})
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
