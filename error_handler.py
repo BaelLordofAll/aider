@@ -34,4 +34,12 @@ def bad_request_error(error):
         'message': 'The request was invalid or cannot be processed.'
     }), 400
 
+@app.errorhandler(500)
+def internal_server_error(error):
+    logging.critical(f"500 Error: {error}")
+    return jsonify({
+        'error': 'Internal Server Error',
+        'message': 'An unexpected condition was encountered.'
+    }), 500
+
 # Add more error handlers as needed
