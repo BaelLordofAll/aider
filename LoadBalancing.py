@@ -9,6 +9,7 @@ class LoadBalancer:
     def __init__(self):
         self.servers = ['server1', 'server2', 'server3']
         self.weights = [1, 2, 1]  # Example weights for servers
+        self.current_weight = 0
 
     def balance_load(self, load):
         # Implement a weighted round-robin load balancing algorithm
@@ -17,6 +18,9 @@ class LoadBalancer:
         for i, server in enumerate(self.servers):
             r -= self.weights[i]
             if r <= 0:
+                self.current_weight += self.weights[i]
+                if self.current_weight >= total_weight:
+                    self.current_weight = 0
                 return server
 
 load_balancer = LoadBalancer()
