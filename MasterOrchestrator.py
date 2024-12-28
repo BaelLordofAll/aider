@@ -48,6 +48,7 @@ class MasterOrchestrator:
             self.knowledge_integrator.update_knowledge()
             self.trend_analyzer.analyze_trends()
             self.monetization_engine.optimize_income()
+            self.auto_automator.update_llm('general')  # Update LLM for general tasks
             self.socketio.emit('system_orchestrated', {'message': 'System has been orchestrated'})
             self.is_running = False
 

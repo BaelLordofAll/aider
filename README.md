@@ -27,7 +27,7 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
   - **Start Scheduler**: Start the daily evolution scheduler.
   - **Auto Run Evolution**: Automatically evolve the system.
   - **Generate Idea**: Generate innovative ideas for monetization.
-  - **Switch LLM**: Switch between different Language Models.
+  - **Switch LLM**: Switch between different Language Models for specific tasks.
   - **Train Agent**: Train agents with new data.
 
 - **System Integration**: Access at `localhost:5000/integrate_all`
@@ -45,7 +45,7 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 
 - **Real-time Monitoring**: The system continuously monitors its performance and user interactions, providing real-time feedback through SocketIO.
 
-- **Learning and Evolution**: The system learns from interactions and evolves by updating AI models and automation scripts.
+- **Learning and Evolution**: The system learns from interactions and evolves by updating AI models, automation scripts, and LLMs.
 
 - **Automation**: Automates the creation and modification of automation scripts based on system needs.
 
@@ -61,7 +61,7 @@ This system is designed to be an autonomous, self-evolving entity capable of aut
 
 - **Innovative Idea Generation**: Generates ideas for monetization and system enhancement.
 
-- **LLM Management**: Ability to switch between different Language Models for content generation and analysis.
+- **LLM Management**: Ability to switch between different Language Models for content generation, code generation, and other specific tasks.
 
 - **Agent Training**: Train AI agents with new data to enhance system capabilities.
 
@@ -92,9 +92,9 @@ For any issues or suggestions, please contact the development team at [your-emai
 
 ### Core Modules
 
-- **AutoAutomator.py**: Automates the creation and evolution of automation scripts.
+- **AutoAutomator.py**: Automates the creation, evolution, and self-updating of automation scripts, including LLM management.
 - **SystemIntegration.py**: Integrates all system components for seamless operation.
-- **MasterOrchestrator.py**: Orchestrates the entire system, managing high-level control and evolution.
+- **MasterOrchestrator.py**: Orchestrates the entire system, managing high-level control, evolution, and LLM updates.
 - **BaEl.py**: An advanced orchestrator for system evolution and innovation.
 
 ### AI and Machine Learning
@@ -169,7 +169,7 @@ To run the system:
   - **Start Scheduler**: Start the daily evolution scheduler.
   - **Auto Run Evolution**: Automatically evolve the system.
   - **Generate Idea**: Generate innovative ideas for monetization.
-  - **Switch LLM**: Switch between different Language Models.
+  - **Switch LLM**: Switch between different Language Models for specific tasks.
   - **Train Agent**: Train agents with new data.
 
 - **System Integration**: Access at `localhost:5000/integrate_all`
@@ -187,7 +187,7 @@ To run the system:
 
 - **Real-time Monitoring**: The system continuously monitors its performance and user interactions, providing real-time feedback through SocketIO.
 
-- **Learning and Evolution**: The system learns from interactions and evolves by updating AI models and automation scripts.
+- **Learning and Evolution**: The system learns from interactions and evolves by updating AI models, automation scripts, and LLMs.
 
 - **Automation**: Automates the creation and modification of automation scripts based on system needs.
 
@@ -203,7 +203,7 @@ To run the system:
 
 - **Innovative Idea Generation**: Generates ideas for monetization and system enhancement.
 
-- **LLM Management**: Ability to switch between different Language Models for content generation and analysis.
+- **LLM Management**: Ability to switch between different Language Models for content generation, code generation, and other specific tasks.
 
 - **Agent Training**: Train AI agents with new data to enhance system capabilities.
 

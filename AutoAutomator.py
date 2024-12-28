@@ -1,4 +1,4 @@
-from abacusai import ApiClient, ReinforcementLearningModel
+from abacusai import ApiClient, ReinforcementLearningModel, LanguageModel
 from flask import Flask, render_template, request, jsonify
 import json
 from datetime import datetime
@@ -18,6 +18,7 @@ socketio = SocketIO(app)
 class AutoAutomator:
     def __init__(self):
         self.learning_model = ReinforcementLearningModel(client, 'Reinforcement Learning Model')
+        self.llm = LanguageModel(client, 'General LLM')
         self.automations = {}
         self.monitor_data = {}
         self.ethical_guidelines = self._load_ethical_guidelines()
@@ -107,6 +108,24 @@ def {func_name}_automation():
             self.learning_model.fit(data)
             self.socketio.emit('agent_trained', {'message': f'Hey, {agent_name} has been trained with new data!'})
 
+    def update_llm(self, task):
+        # Logic to update or switch LLM based on the task
+        if task == 'content_generation':
+            self.llm = LanguageModel(client, 'Content Generation LLM')
+        elif task == 'code_generation':
+            self.llm = LanguageModel(client, 'Code Generation LLM')
+        # Add more task-specific LLM updates here
+
+    def generate_content(self, topic, format, target_audience):
+        # Use the LLM to generate content based on current trends and user input
+        trends = self._load_trends()
+        content = self.llm.generate_content(topic, format, target_audience, trends)
+        return content
+
+    def _load_trends(self):
+        with open('current_trends.json', 'r') as file:
+            return json.load(file)
+
 auto_automator = AutoAutomator()
 
 @app.route('/')
@@ -152,6 +171,20 @@ def train_agent():
     data = request.json
     auto_automator.train_agent(agent_name, data)
     return jsonify({"status": f"Hey, training for {agent_name} initiated."})
+
+@app.route('/update_llm', methods=['POST'])
+def update_llm():
+    task = request.form['task']
+    auto_automator.update_llm(task)
+    return jsonify({"status": f"LLM updated for {task}."})
+
+@app.route('/generate_content', methods=['POST'])
+def generate_content():
+    topic = request.form['topic']
+    format = request.form['format']
+    target_audience = request.form['target_audience']
+    content = auto_automator.generate_content(topic, format, target_audience)
+    return jsonify({"content": content})
 
 @socketio.on('connect')
 def test_connect():
