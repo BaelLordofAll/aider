@@ -1,4 +1,29 @@
-# Autonomous System Documentation
+# Automated Picture Generation to Animation Project
+
+This project aims to create a fully automated system for generating pictures and animations in both 2D and 3D, with a wide range of capabilities.
+
+## Project Structure
+
+* `project_root/`: Project root directory
+* `src/`: Source code directory
+* `data/`: Data storage directory
+* `docs/`: Documentation directory
+* `tests/`: Testing directory
+
+## Components
+
+* Image/Video Generation Module (2D and 3D)
+* Animation Engine (2D and 3D)
+* Automation Scripting (e.g., Python, Bash, or other scripting languages)
+* Data Storage and Management (e.g., databases, file systems)
+* User Interface (e.g., web interface, command-line interface, or GUI)
+
+## Future Enhancements
+
+* AI Model Integration for advanced image/video generation
+* Integration with popular animation software (e.g., Blender, Adobe Animate)
+* Support for various file formats (e.g., PNG, JPEG, GIF, MP4, AVI)
+* Web-based interface for user input and output
 
 ## Overview
 
